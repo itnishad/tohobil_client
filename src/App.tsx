@@ -1,24 +1,52 @@
-import React from 'react';
-import logo from './assets/images/logo.png';
+import React, { useReducer } from 'react';
+// import logo from './assets/images/logo.png';
 import './App.css';
+import { Routes, Route } from "react-router-dom";
+
+import Navbar from './components/navbar/Navbar';
+import Home from './pages/home/Home';
+import Campaigns from './pages/campaigns/Campaigns';
+import Dashboard from './pages/dashboard/Dashboard';
+import Login from './pages/login/Login';
+import Registration from './pages/registration/Registration';
+import Logout from './pages/login/logout';
+import StartACampaign from './pages/startACampaign/startACampaign';
+import RequireAuth from './components/RequireAuth';
+import RequireUnAuth from './components/RequireUnAuth';
+
+import AuthContext from './context-api/authContext';
+import {initialState, reducer} from './reducer/AuthReducer' 
 
 function App() {
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} height={150} width={250} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <div className="col-12">
+        <AuthContext.Provider value={{state, dispatch}}>
+          <Navbar/>
+
+          <Routes>
+            {/* public route */}
+            <Route path="/" element={<Home/>} />
+            <Route path="/campaigns" element={<Campaigns />} />
+            <Route  element={<RequireUnAuth/>}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/registration" element={<Registration />} />
+            </Route>
+
+
+            {/* private route */}
+            <Route element={<RequireAuth/>}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path='logout' element={<Logout />}/>
+              <Route path='start-a-campaign' element={<StartACampaign />}/>
+            </Route >
+          </Routes>
+          </AuthContext.Provider>
+
+        </div>
     </div>
   );
 }
