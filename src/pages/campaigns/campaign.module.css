@@ -1,0 +1,12 @@
+.category{
+    font-weight: bold;
+    line-height: 27px;
+    font-size: 17px;
+    color: #444;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.buttomMargin{
+    margin-bottom: 0px !important;
+}

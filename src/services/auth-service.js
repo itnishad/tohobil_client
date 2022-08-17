@@ -21,6 +21,7 @@ export const login = async(body) =>{
     const response = await axios.post('http://localhost:4000/v1/auth/login', body);
 
     if(response.data.Token){
+        console.log(response.data)
         localStorage.setItem('user', JSON.stringify(response.data))
      }
      

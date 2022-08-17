@@ -52,62 +52,64 @@ const Login = ()=>{
 }
 
   return (
-    <div className="row justify-content-center mt-5 p-5">
-      <div className="col-5 bg-light p-5 custom-log">
+    <div className="container">
+      <div className="row justify-content-center mt-5 p-5">
+        <div className="col-5 bg-light p-5 custom-log">
 
-    {errorHandel ?  <Alert  variant="danger" onClose={() => seterrorHandel(false)} dismissible>
-      Incorrect username or password
-        </Alert> : null}
+        {errorHandel ?  <Alert  variant="danger" onClose={() => seterrorHandel(false)} dismissible>
+          Incorrect username or password
+          </Alert> : null}
 
 
-    <form onSubmit={handleSubmit}>
-        <h3>Sign In</h3>
-        <div className="mb-3">
-          <label className='mb-2'>Email address</label>
-          <input
-            type="email"
-            className="form-control form-control-lg"
-            placeholder="Enter email"
-            name='email'
-            value={user.email}
-            onChange={handleChange}
-          />
-        </div>
+          <form onSubmit={handleSubmit}>
+              <h3>Sign In</h3>
+              <div className="mb-3">
+                <label className='mb-2'>Email address</label>
+                <input
+                  type="email"
+                  className="form-control form-control-lg"
+                  placeholder="Enter email"
+                  name='email'
+                  value={user.email}
+                  onChange={handleChange}
+                />
+              </div>
 
-        <div className="mb-3">
-          <label className='mb-2'>Password</label>
-          <input
-            type="password"
-            className="form-control form-control-lg"
-            placeholder="Enter password"
-            name='password'
-            value={user.password}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="mb-3">
-          <div className="custom-control custom-checkbox">
-            <input
-              type="checkbox"
-              className="custom-control-input"
-              id="customCheck1"
-            />
-            <label className="custom-control-label ms-2" htmlFor="customCheck1">
-              Remember me
-            </label>
+              <div className="mb-3">
+                <label className='mb-2'>Password</label>
+                <input
+                  type="password"
+                  className="form-control form-control-lg"
+                  placeholder="Enter password"
+                  name='password'
+                  value={user.password}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <div className="custom-control custom-checkbox">
+                  <input
+                    type="checkbox"
+                    className="custom-control-input"
+                    id="customCheck1"
+                  />
+                  <label className="custom-control-label ms-2" htmlFor="customCheck1">
+                    Remember me
+                  </label>
+                </div>
+              </div>
+              <div className="d-grid">
+              <input className="btn btn-primary"  type="submit" value="LogIn" />
+                {/* <button type="submit" className="btn btn-primary">
+                  Submit
+                </button> */}
+              </div>
+              <p className="forgot-password text-right mt-3">
+                don't have account <a href="/registration">Registration?</a>
+              </p>
+            </form>
           </div>
         </div>
-        <div className="d-grid">
-        <input className="btn btn-primary"  type="submit" value="LogIn" />
-          {/* <button type="submit" className="btn btn-primary">
-            Submit
-          </button> */}
-        </div>
-        <p className="forgot-password text-right mt-3">
-          don't have account <a href="/registration">Registration?</a>
-        </p>
-      </form>
-      </div>
       </div>
   )
 }

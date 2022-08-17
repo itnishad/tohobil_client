@@ -29,6 +29,10 @@ h1,h2,h3,h4,h5,h6,label,span {
   border-radius: 15px;
 }
 
+.custom-campaign{
+  border-radius: 15px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -65,4 +69,9 @@ h1,h2,h3,h4,h5,h6,label,span {
   to {
     transform: rotate(360deg);
   }
+}
+
+/*Campaign page*/
+.category-bg{
+  background-color: #F5F5F5;
 }
