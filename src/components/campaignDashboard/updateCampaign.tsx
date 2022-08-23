@@ -1,10 +1,26 @@
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Editor } from "@tinymce/tinymce-react";
-import {createCampaign} from '../../services/campaign.service'
+import {updateCampaign} from '../../services/campaign.service'
 import Alert from 'react-bootstrap/Alert';
+import { useLocation } from "react-router-dom";
 
-const StartACampaign = () => {
+const formatDate = (location:any)=>{
+    let DD:string = "";
+    let MM:string = "";
+
+    const dateDadeline = new Date(location.state.deadline);
+        const yyyy = dateDadeline.getFullYear();
+        let mm = dateDadeline.getMonth() + 1;
+        let dd = dateDadeline.getDate();
+        dd < 10 ? DD =`0${dd}`: DD=`${dd}`;
+        mm < 10 ? MM =`0${mm}`: MM=`${mm}`;
+        let dateFormat = yyyy + '-' +  MM + '-' + DD;
+        return  dateFormat;
+
+}
+
+const UpdateCampaign = () => {
 
     const [campaign, setCampaign] = useState({
         title:"",
@@ -14,56 +30,65 @@ const StartACampaign = () => {
         category:"Nonprofit"
     });
 
+    const location:any = useLocation();
+    console.log(location)
+
+    useEffect(()=>{
+        const formattedToday = formatDate(location);
+        const cmp:any = {
+            title: location.state.title,
+            content: location.state.content,
+            goalAmount:location.state.goalAmount,
+            deadline:formattedToday,
+            category:location.state.category
+        }
+        setCampaign(cmp);
+    },[location])
+    
+
     const [errorHandel, seterrorHandel] = useState(0);
 
     const [file, setFile] = useState('');
 
     const handleChangeEditor = (event: any)=>{
-       setCampaign({
-        ...campaign,
-        content:event
-       })
-    }
-
-    const handleChangeFile = (event: any)=>{
-      setFile(event.target.files[0]);
-    }
-
-    const handleChange = (event:any) =>{
         setCampaign({
-            ...campaign,
-            [event.target.name]: event.target.value
+         ...campaign,
+         content:event
         })
-    }
+     }
+ 
+     const handleChangeFile = (event: any)=>{
+       setFile(event.target.files[0]);
+     }
+ 
+     const handleChange = (event:any) =>{
+         setCampaign({
+             ...campaign,
+             [event.target.name]: event.target.value
+         })
+     }
+ 
+     const handleSubmit = async(event:any)=>{
+         event.preventDefault();
+         
+         const formdata = new FormData();
+         let postData = JSON.stringify(campaign);
+         formdata.append('data', postData);
+         formdata.append('file', file);
+        let id = location.state._id
+ 
+         try {
+           const response = await updateCampaign(id,formdata);
+           seterrorHandel(response.status)
+           console.log(response)
 
-    const handleSubmit = async(event:any)=>{
-        event.preventDefault();
-        
-        const formdata = new FormData();
-        let postData = JSON.stringify(campaign);
-        formdata.append('data', postData);
-        formdata.append('file', file);
-
-
-        try {
-          const response = await createCampaign(formdata);
-          seterrorHandel(response.status)
-          setCampaign({
-            title:"",
-            content:"",
-            goalAmount:"",
-            deadline:"",
-            category:"Nonprofit"
-        })
-          // const response = await axios.post('https://httpbin.org/anything', formdata)
-          console.log(response)
-        } catch (error:any) {
-          // console.log(error.response.status);
-          seterrorHandel(error.response.status)
-        }
-
-        
-    }
+         } catch (error:any) {
+           // console.log(error.response.status);
+           seterrorHandel(error.response.status)
+         }
+ 
+         
+     }
 
   return (
     <div className="container">
@@ -73,7 +98,7 @@ const StartACampaign = () => {
         {errorHandel === 500 ?  <Alert  variant="danger" onClose={() => seterrorHandel(0)} dismissible>
         Campaign Insert unsuccessfully
           </Alert> : null}
-        {errorHandel === 201 ?  <Alert  variant="success" onClose={() => seterrorHandel(0)} dismissible>
+        {errorHandel === 200 ?  <Alert  variant="success" onClose={() => seterrorHandel(0)} dismissible>
         Campaign Insert Successfully
           </Alert> : null}
 
@@ -135,6 +160,7 @@ const StartACampaign = () => {
                 name="deadline"
                 data-date ="" 
                 data-date-format="DD MMMM YYYY"
+                defaultValue={campaign.deadline}
                 onChange={handleChange}
                 placeholder="Deadline"
                 required
@@ -165,20 +191,23 @@ const StartACampaign = () => {
               name="file"
               accept=".jpg"
               onChange={handleChangeFile}
-              size="lg"
-              required/>
+              size="lg"/>
             </Form.Group>
 
             <input
               className="btn btn-success btn-lg mt-3 px-5 py-3 col-12 "
               type="submit"
-              value="Publish Campaign"
+              value="Update Campaign"
             />
           </form>
         </div>
       </div>
     </div>
-  );
-};
+  )
 
-export default StartACampaign;
+// return(
+//     <div>Hello World</div>
+// )
+}
+
+export default UpdateCampaign

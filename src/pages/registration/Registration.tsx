@@ -1,12 +1,13 @@
-import React, { FC,useState } from 'react'
+import React, { FC,useState, useContext } from 'react'
 import {registration} from '../../services/auth-service'
+import AuthContext from '../../context-api/authContext';
 
 import { useNavigate } from 'react-router-dom';
 
 const Registration:FC<{}> = ()=>{
 
   const navigate = useNavigate();
-
+  const {state, dispatch} = useContext(AuthContext);
   const [user, setUser] = useState({
       name:"",
       email:"",
@@ -26,6 +27,7 @@ const Registration:FC<{}> = ()=>{
       try {
         const User:any = await registration(user);
         if(User){
+          dispatch({type: "USER", payload: User})
           navigate('/', {replace: true});
         }
         setUser({
@@ -66,7 +68,7 @@ const Registration:FC<{}> = ()=>{
         <form onSubmit={handleSubmit}>
           <h3>Sign Up</h3>
           <div className="mb-3 form-group">
-            <label className='mb-2'>First name</label>
+            <label className='mb-2'>User name</label>
             <input
               type="text"
               className={validationError.name ? "form-control form-control-lg is-invalid" : "form-control form-control-lg"}
@@ -103,6 +105,7 @@ const Registration:FC<{}> = ()=>{
               name='password'
               value={user.password}
               onChange={handleChange}
+              autoComplete="on"
             />
             <div className="invalid-feedback">
                 {validationError.password}
@@ -117,6 +120,7 @@ const Registration:FC<{}> = ()=>{
               name='confirmPassword'
               value={user.confirmPassword}
               onChange={handleChange}
+              autoComplete="on"
             />
             <div className="invalid-feedback">
                 {validationError.confirmPassword}

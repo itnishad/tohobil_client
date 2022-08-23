@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import classes from './campaign.module.css'
 import Button from "react-bootstrap/Button";
@@ -12,11 +13,11 @@ const CampaignCard = (props: any) => {
     // console.log(camapign);
     let now = Math.floor((camapign.Amount / camapign.goalAmount) * 100)
     return(
-        <div className="col-sm-4 ">
-          <Card >
+        <div className="col-md-4 ">
+          <Card className="h-100">
             <Card.Img variant="top" width={"100px"} height={"200px"} src={`http://localhost:4000/public/images/${camapign.filename}`} />
-            <Card.Body>
-              <Card.Title className="mt-2">{camapign.title}</Card.Title>
+            <Card.Body className={classes.cardBodyCustom}>
+             <Link to={`../../campaigns/details/${camapign._id}`}><Card.Title className="mt-2">{camapign.title}</Card.Title></Link>
               <Card.Text>By : {camapign.user.name}</Card.Text>
               <ProgressBar className="mb-4" now={now} label={`${now}%`} />
               <div className="row">
@@ -33,8 +34,10 @@ const CampaignCard = (props: any) => {
               {/* <Button className="btn btn-primary btn-lg btn-block" variant="primary">Go somewhere</Button> */}
 
               <div className="row">
-                <div className="col-sm-12 ">
+                <div className="col-sm-12">
+                <Link to={`../../campaigns/details/${camapign._id}`}>
                 <Button className="btn btn-primary col-12"  variant="primary">Make a Donation</Button>
+                </Link>
                 </div>
               </div>
             </Card.Body>

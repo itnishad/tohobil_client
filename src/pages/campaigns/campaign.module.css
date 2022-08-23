@@ -1,12 +1,81 @@
-.category{
-    font-weight: bold;
-    line-height: 27px;
-    font-size: 17px;
-    color: #444;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #CCCCCC;
+.category {
+  font-weight: bold;
+  line-height: 27px;
+  font-size: 17px;
+  color: #444;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #cccccc;
 }
 
-.buttomMargin{
-    margin-bottom: 0px !important;
+.buttomMargin {
+  margin-bottom: 0px !important;
+}
+
+.cardBodyCustom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/*Campaign Details*/
+
+.categoryDesign {
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
+  min-height: 20px;
+  border: 1px solid currentColor;
+  border-radius: 16px;
+}
+
+.marginBottom {
+  margin-bottom: 100px;
+}
+
+.fund {
+    font-weight: 700;
+  font-size: 18px;
+  text-transform: capitalize;
+}
+
+.fundRaised {
+  color: #041D57;
+  font-size: 3em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.fundGoal{
+    color:#4CC899;
+    font-size: 3em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+.fundConti{
+    color:#ED6753;
+    font-size: 3em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    font-weight: 800;
+}
+.btnCustom{
+    width: 100%;
+    min-height: 75px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    background-color: #01bfbd !important;
+    border-radius: 6px;
+    position: relative;
+    z-index: 2;
+    border:none
+}
+.btnCustom:hover{
+    background-color: #009432 !important;
+    border:none;
 }

@@ -25,7 +25,7 @@ export const login = async(body) =>{
         localStorage.setItem('user', JSON.stringify(response.data))
      }
      
-     return response;
+     return response.data;
 }
 
 export const logout = ()=>{

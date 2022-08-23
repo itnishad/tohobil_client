@@ -1,0 +1,9 @@
+.cardBodyCustom {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.buttomMargin {
+    margin-bottom: 0px !important;
+}

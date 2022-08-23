@@ -6,6 +6,7 @@ const RequireAuth = () =>{
 
     const {state} = useContext(authContext);
     const location = useLocation();
+    // console.log(state);
     return(
         state ? <Outlet/> : <Navigate to="/login" state={ {form:location} } replace />
     )

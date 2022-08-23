@@ -12,7 +12,7 @@ const Navbarsection: FC<{}> = ()=> {
 
   if(state){
     return(
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="light" variant="dark">
         <Container>
 
           <Navbar.Brand as={Link} to="/">
@@ -21,7 +21,7 @@ const Navbarsection: FC<{}> = ()=> {
 
           <Nav className="ms-auto">
             <Nav.Link as={Link} to="/campaigns">CAMPAIGN</Nav.Link> 
-            <Nav.Link href="#home">HOW IT WORKS</Nav.Link>
+            <Nav.Link as={Link} to="/faq">FAQ</Nav.Link>
             <Nav.Link as={Link} to="/dashboard">DASHBOARD</Nav.Link>
             <Nav.Link as={Link} to="/start-a-campaign">START A CAMPAIGN</Nav.Link>
             {/* <Nav.Link as={Link} to="/logout">LOGOUT</Nav.Link> */}
@@ -41,7 +41,7 @@ const Navbarsection: FC<{}> = ()=> {
 
           <Nav className="ms-auto">
             <Nav.Link as={Link} to="/campaigns">CAMPAIGN</Nav.Link>
-            <Nav.Link href="#home">HOW IT WORKS</Nav.Link>
+            <Nav.Link as={Link} to="/faq">FAQ</Nav.Link>
             <Nav.Link as={Link} to="/start-a-campaign">START A CAMPAIGN</Nav.Link> 
             <Nav.Link as={Link} to="/login">LOGIN</Nav.Link>
           </Nav>

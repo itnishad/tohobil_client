@@ -84,6 +84,7 @@ const Login = ()=>{
                   name='password'
                   value={user.password}
                   onChange={handleChange}
+                  autoComplete="on"
                 />
               </div>
               <div className="mb-3">

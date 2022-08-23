@@ -9,13 +9,16 @@ export const createCampaign = async (body) =>{
 }
 
 export const getALlCampaign = async(...args)=>{
-    const res = await axios.get(args[0], { headers: {...authHeader(), 'Content-Type': 'multipart/form-data'} });
+    const res = await axios.get(args[0]);
     return res.data
 }
 
-export const getImage = async(...args)=>{
-    // console.log(args)
-     const response = await axios.get(args[0], { headers: {...authHeader(),  'Content-Type': 'multipart/form-data'} })
-     console.log(response);
-    // return response.data;
+export const getCampaign = async(...args)=>{
+    const res = await axios.get(args[0],  { headers: {...authHeader()} });
+    return res.data;
+}
+
+export const updateCampaign = async(id, body)=>{
+    const response = await axios.post(API_URL + `/update/${id}`, body, { headers: {...authHeader(), 'Content-Type': 'multipart/form-data'} });
+    return response;
 }
