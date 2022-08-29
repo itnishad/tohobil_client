@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
 import { Link } from "react-router-dom";
 import { getCampaign } from "../../services/campaign.service";
@@ -9,8 +9,10 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import { useParams } from "react-router-dom";
 import classes from "./campaign.module.css";
 import { getUser } from "../../services/auth-service";
+import PaymentForm from "../../components/paymentModal/PaymentForm";
 
 const CampaignDetails = () => {
+  const [show, setShow] = useState(false);
   const { campaignId } = useParams();
   const { data, error } = useSWR(
     `http://localhost:4000/v1/campaign/details/${campaignId}`,
@@ -25,8 +27,8 @@ const CampaignDetails = () => {
   let sessionUser = user.User._id;
   let localUser = data[0].user._id;
 
-  console.log(user.User._id)
-  console.log(data[0].user._id)
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <div className={`container mt-5 ${classes.marginBottom}`}>
@@ -99,7 +101,7 @@ const CampaignDetails = () => {
               ></path>{" "}
             </svg>
             Edit Campaign
-          </button> </Link>: <button className={`btn btn-primary btn-lg ${classes.btnCustom}`}>
+          </button > </Link>: <button onClick={handleShow} className={`btn btn-primary btn-lg ${classes.btnCustom}`}>
             <svg
               style={{color: "white"}}
               xmlns="http://www.w3.org/2000/svg"
@@ -117,12 +119,14 @@ const CampaignDetails = () => {
             </svg>
             DONATE NOW
           </button>}
+          <PaymentForm show={show} handleClose={handleClose} campaign = {data[0]}/>
           {/* #Todo Copy link */}
           {/* Share Link */}
           {/* Top Donar list */}
         </div>
       </div>
     </div>
+
   );
 };
 

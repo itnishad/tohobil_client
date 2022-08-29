@@ -1,6 +1,4 @@
 import React, { Suspense, useReducer } from "react";
-import useSWR from "swr";
-// import logo from './assets/images/logo.png';
 import "./App.css";
 import { Routes, Route, Navigate  } from "react-router-dom";
 
@@ -22,28 +20,20 @@ import UpdateCampaign from "./components/campaignDashboard/updateCampaign";
 import ProfileForm from "./components/profile/ProfileForm";
 
 import AuthContext from "./context-api/authContext";
-import CampaignContext from "./context-api/campaignsContext";
-
-import { getALlCampaign } from "./services/campaign.service";
 
 import { initialState, reducer } from "./reducer/AuthReducer";
 
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const {data, error} = useSWR("http://localhost:4000/v1/campaign/get-all-campaigns", getALlCampaign, 
-  {suspense: true,});
 
-  if(error) return <div>Error</div>
-  if(!data) return <div>NO Data Found</div>
-  if(data.length<=0) return <>Hello</>
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <div className="App">
       <div className="col-12">
         <AuthContext.Provider value={{ state, dispatch }}>
           <Navbar />
-          <CampaignContext.Provider value={data}>
+          
           <Routes>
             {/* public route */}
             <Route path="/" element={<Home />} />
@@ -92,7 +82,6 @@ function App() {
               <Route path="/update/campaign" element={<UpdateCampaign />}/>
             </Route>
           </Routes>
-          </CampaignContext.Provider>
           <Footer/>
         </AuthContext.Provider>
         

@@ -1,22 +1,27 @@
 import React, { useContext, Suspense } from "react";
+import useSWR from "swr";
 
 import authContext from "../../context-api/authContext";
 import CampaignContext from "../../context-api/campaignsContext";
+import { getALlCampaign } from "../../services/campaign.service";
 
 import CampaignDashbordCard from "./CampaignDashbordCard";
 
 const CampaignDashboard = () => {
+  let campaigns:any
   const user = useContext(authContext).state.User
-  console.log(user)
-  let campaigns = useContext(CampaignContext);
+  
+  const {data, error} = useSWR("http://localhost:4000/v1/campaign/get-all-campaigns", getALlCampaign, 
+  {suspense: true,});
 
   if (!user) return <div>Sorry, Login</div>;
+  if(!data) return <div>No Data Present</div>
+  if(error) return <div>Error</div>
+  if(data.length<=0) return <div>Data Length Is Null</div>
 
-  campaigns = campaigns.filter(
+  campaigns = data.filter(
     (campaign: any) => campaign.user._id === user._id
   );
-
-  console.log(campaigns);
 
   if (campaigns.length <= 0) {
     return <div>Sorry, no Campaigns Found.</div>;

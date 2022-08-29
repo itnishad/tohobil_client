@@ -1,15 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
 import Carousel from "react-bootstrap/Carousel";
-import CampaignContext from "../../context-api/campaignsContext";
 import CampaignCard from "../campaigns/campaignCard";
 import { Link } from "react-router-dom";
 import classes from "./home.module.css";
+import useSWR from "swr";
+import { getALlCampaign } from "../../services/campaign.service";
 
-// C:\Users\fhnis\Desktop\GitHub\Tohobil\public\images\refugee1.jpg
 
 const Home = () => {
-  const campaigns = useContext(CampaignContext);
-  const firstFiveCampaigns = campaigns.slice(0, 5);
+
+  const {data, error} = useSWR("http://localhost:4000/v1/campaign/get-all-campaigns", getALlCampaign, 
+  {suspense: true,});
+
+  if(!data) return <div>No Data Present</div>
+  if(error) return <div>Error</div>
+  if(data.length<=0) return <div>Data Length Is Null</div>
+
+  const firstFiveCampaigns = data.slice(0, 5);
   return (
     <>
       {/* Carosoul Section */}

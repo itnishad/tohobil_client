@@ -11,6 +11,7 @@ const ProfileForm = () => {
     "http://localhost:4000/v1/user/profile",
     getUserProfile
   );
+  console.log(data)
   const [profile, setProfile] = useState({
     username: "",
     email: "",
@@ -24,7 +25,8 @@ const ProfileForm = () => {
 
   useEffect(() => {
     if(data){
-        const userProfile = {
+        if(data.length>0){
+          const userProfile = {
             username: data[0].user.name,
             email: data[0].user.email,
             firstName: data[0].firstName,
@@ -33,6 +35,7 @@ const ProfileForm = () => {
             bio:data[0].bio,
           };
           setProfile(userProfile)
+        }
     }
   }, [data]);
 

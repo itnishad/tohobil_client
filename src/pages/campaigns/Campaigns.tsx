@@ -1,11 +1,12 @@
-import React, { useState, useEffect, Suspense, useContext } from "react";
+import React, { useState, Suspense } from "react";
 
-import CampaignContext from "../../context-api/campaignsContext";
 
 import SiteCategory from "./siteCategory";
 import CampaignCard from "./campaignCard";
 
 import Spinner from "react-bootstrap/Spinner";
+import useSWR from "swr";
+import { getALlCampaign } from "../../services/campaign.service";
 
 // interface campaigns {
 //   id: string,
@@ -21,19 +22,20 @@ import Spinner from "react-bootstrap/Spinner";
 
 const Campaigns = () => {
   let campaigns:any;
+
   const [category, setCategory] = useState("All");
+  const {data, error} = useSWR("http://localhost:4000/v1/campaign/get-all-campaigns", getALlCampaign, 
+  {suspense: true,});
 
-  // const {campaigns, isLoding, isError} = useCampaigns();
-
-   campaigns = useContext(CampaignContext);
-
-  useEffect(() => {
-    // console.log(category);
-  }, [category]);
+  if(!data) return <div>No Data Present</div>
+  if(error) return <div>Error</div>
+  if(data.length<=0) return <div>Data Length Is Null</div>
+  
 
   if(category !== 'All'){
-    campaigns = campaigns.filter((campaign:any)=> campaign.category=== category )
-    // console.log(campaigns);
+    campaigns = data.filter((campaign:any)=> campaign.category=== category )
+  }else{
+    campaigns= data;
   }
 
   const handleCategory = (value: string) => {
