@@ -3,10 +3,14 @@ import Modal from "react-bootstrap/Modal";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+import { getUser } from "../../services/auth-service";
 
 import { paymentSubmit } from "../../services/payment.service";
+import { NavLink } from "react-router-dom";
 
 const PaymentForm = (props: any) => {
+
+  const user = getUser()
 
   const [payment, setPayment] = useState({})
   const show = props.show;
@@ -25,10 +29,12 @@ const PaymentForm = (props: any) => {
 
   const handleSubmit = async (event:any)=>{
     event.preventDefault()
-    let sslUrl = await paymentSubmit(param, payment)
+    let sslUrl = await paymentSubmit(user.User._id, param, payment)
     // console.log(sslUrl)
     window.location.replace(sslUrl);
   }
+
+  if(user === null) return <NavLink to={"../../login"}/>
 
   return (
     <Modal show={show} onHide={ModalhandleClose}>

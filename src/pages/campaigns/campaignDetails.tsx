@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useSWR from "swr";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { getCampaign } from "../../services/campaign.service";
 
 import Tab from "react-bootstrap/Tab";
@@ -24,6 +24,7 @@ const CampaignDetails = () => {
   let now = Math.floor((data[0].Amount / data[0].goalAmount) * 100);
 
   let user = getUser();
+  if(user === null) return <Navigate to={"../../login"}/>
   let sessionUser = user.User._id;
   let localUser = data[0].user._id;
 

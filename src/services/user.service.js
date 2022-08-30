@@ -11,3 +11,8 @@ export const updateUserProfile = async(body)=>{
     const response = await axios.post("http://localhost:4000/v1/user/profile/update", body, { headers: {...authHeader()} });
     return response;
 }
+
+export const getUserPaymentHistory = async(...args) =>{
+    const response = await axios.get(args[0], { headers: {...authHeader()} });
+    return response.data;
+}

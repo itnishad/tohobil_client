@@ -18,7 +18,7 @@ import FAQ from "./pages/faq/faq";
 import CampaignDashboard from "./components/campaignDashboard/CampaignDashboard"
 import UpdateCampaign from "./components/campaignDashboard/updateCampaign";
 import ProfileForm from "./components/profile/ProfileForm";
-
+import PaymentHistory from "./components/campaignDashboard/PaymentHistory";
 import AuthContext from "./context-api/authContext";
 
 import { initialState, reducer } from "./reducer/AuthReducer";
@@ -77,7 +77,7 @@ function App() {
                   <Route index element={<Navigate to="myDashboard" />}/>
                   <Route path="myDashboard" element={<CampaignDashboard />} />
                   <Route path="myAccount" element={<ProfileForm />} />
-                  <Route path="myAddress" element={<p>My Address</p>} />
+                  <Route path="myAddress" element={<PaymentHistory/>} />
               </Route>
               <Route path="/update/campaign" element={<UpdateCampaign />}/>
             </Route>

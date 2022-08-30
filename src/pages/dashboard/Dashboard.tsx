@@ -33,7 +33,7 @@ const Dashboard = () => {
           <ListGroup as="ul"  variant="flush" bsPrefix="">
            <Link to="myDashboard"> <ListGroup.Item as="li" action onClick={()=>{setActiveState("/dashboard")}} active={activeState==="myCampaigns"}>My Campaigns</ListGroup.Item></Link>
            <Link to="myAccount"> <ListGroup.Item as="li" action onClick={()=>{setActiveState("myAcount")}} active={activeState==="myAcount"}>My Account</ListGroup.Item></Link>
-           <Link to="myAddress"> <ListGroup.Item as="li" action onClick={()=>{setActiveState("myAddress")}} active={activeState==="myAddress"}>My Address</ListGroup.Item></Link>
+           <Link to="myAddress"> <ListGroup.Item as="li" action onClick={()=>{setActiveState("myAddress")}} active={activeState==="myAddress"}>Payment History</ListGroup.Item></Link>
            <Link to="../../logout"> <ListGroup.Item as="li">Log Out</ListGroup.Item></Link>
           </ListGroup>
         </div>
