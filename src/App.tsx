@@ -1,8 +1,6 @@
-import React, { Suspense, useReducer } from "react";
+import React, { Suspense } from "react";
 import "./App.css";
-import { Routes, Route, Navigate  } from "react-router-dom";
-
-import Navbar from "./components/navbar/Navbar";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Campaigns from "./pages/campaigns/Campaigns";
 import Dashboard from "./pages/dashboard/Dashboard";
@@ -13,78 +11,102 @@ import StartACampaign from "./pages/startACampaign/startACampaign";
 import CampaignDetails from "./pages/campaigns/campaignDetails";
 import RequireAuth from "./components/RequireAuth";
 import RequireUnAuth from "./components/RequireUnAuth";
-import Footer from "./components/footer/footer";
 import FAQ from "./pages/faq/faq";
-import CampaignDashboard from "./components/campaignDashboard/CampaignDashboard"
+import CampaignDashboard from "./components/campaignDashboard/CampaignDashboard";
 import UpdateCampaign from "./components/campaignDashboard/updateCampaign";
 import ProfileForm from "./components/profile/ProfileForm";
 import PaymentHistory from "./components/campaignDashboard/PaymentHistory";
-import AuthContext from "./context-api/authContext";
 
-import { initialState, reducer } from "./reducer/AuthReducer";
+import UserLayout from "./components/layout/UserLayout";
+import AdminLayout from "./components/layout/AdminLayout";
 
+//Admin Page
+
+import AdminHome from "./Admin/Home/AdminHome";
+import UserList from "./Admin/UserList/UserList";
 
 function App() {
-
-  const [state, dispatch] = useReducer(reducer, initialState);
+  // const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <div className="App">
       <div className="col-12">
-        <AuthContext.Provider value={{ state, dispatch }}>
-          <Navbar />
-          
+        {/* <AuthContext.Provider value={{ state, dispatch }}> */}
           <Routes>
-            {/* public route */}
-            <Route path="/" element={<Home />} />
-            <Route path="/faq" element={<FAQ />}/>
-            <Route path="/campaigns">
-              <Route index  element={
-                <Suspense
-                  fallback={
-                    <div className="spinner-border text-warning" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
+            <Route path="/" element={<UserLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/faq" element={<FAQ />} />
+
+              <Route path="/campaigns">
+                <Route
+                  index
+                  element={
+                    <Suspense
+                      fallback={
+                        <div
+                          className="spinner-border text-warning"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      }
+                    >
+                      <Campaigns />
+                    </Suspense>
                   }
-                >
-                  <Campaigns />
-                </Suspense>
-              }/>
+                />
 
-              <Route path="details/:campaignId"  element={
-                <Suspense
-                fallback={
-                  <div className="spinner-border text-warning" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                }
-              >
-                 <CampaignDetails/>
-              </Suspense>
-            }/>
-            </Route>
-            <Route element={<RequireUnAuth />}>
-              <Route path="/login" element={<Login />} />
-              <Route path="/registration" element={<Registration />} />
-            </Route>
+                <Route
+                  path="details/:campaignId"
+                  element={
+                    <Suspense
+                      fallback={
+                        <div
+                          className="spinner-border text-warning"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      }
+                    >
+                      <CampaignDetails />
+                    </Suspense>
+                  }
+                />
+              </Route>
 
-            {/* private route */}
-            <Route element={<RequireAuth />}>
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="logout" element={<Logout />} />
-              <Route path="start-a-campaign" element={<StartACampaign />} />
-              <Route path="/dashboard/*" element={<Dashboard/>}>
-                  <Route index element={<Navigate to="myDashboard" />}/>
+              <Route element={<RequireUnAuth />}>
+                <Route path="/login" element={<Login />} />
+                <Route path="/registration" element={<Registration />} />
+              </Route>
+
+              <Route element={<RequireAuth />}>
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="logout" element={<Logout />} />
+                <Route path="start-a-campaign" element={<StartACampaign />} />
+                <Route path="/dashboard/*" element={<Dashboard />}>
+                  <Route index element={<Navigate to="myDashboard" />} />
                   <Route path="myDashboard" element={<CampaignDashboard />} />
                   <Route path="myAccount" element={<ProfileForm />} />
-                  <Route path="myAddress" element={<PaymentHistory/>} />
+                  <Route path="myAddress" element={<PaymentHistory />} />
+                </Route>
+                <Route path="/update/campaign" element={<UpdateCampaign />} />
               </Route>
-              <Route path="/update/campaign" element={<UpdateCampaign />}/>
+
+              <Route path="*" element={<div>No Route Match Component</div>} />
             </Route>
+
+            <Route path="admin" element={<AdminLayout />}>
+              <Route path="" element={<div>Admin Panel</div>} />
+              <Route path="home" element={<AdminHome/>}>
+                <Route path="user" element={<UserList/>}/>
+              </Route>
+              <Route path="*" element={<div>No Route Match Component</div>} />
+            </Route>
+
+            <Route path="*" element={<div>No Route Match Component</div>} />
           </Routes>
-          <Footer/>
-        </AuthContext.Provider>
-        
+        {/* </AuthContext.Provider> */}
       </div>
     </div>
   );
