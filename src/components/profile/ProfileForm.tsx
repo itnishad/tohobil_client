@@ -11,7 +11,7 @@ const ProfileForm = () => {
     "http://localhost:4000/v1/user/profile",
     getUserProfile
   );
-  console.log(data)
+  
   const [profile, setProfile] = useState({
     username: "",
     email: "",

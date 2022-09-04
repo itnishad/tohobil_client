@@ -16,3 +16,8 @@ export const getUserPaymentHistory = async(...args) =>{
     const response = await axios.get(args[0], { headers: {...authHeader()} });
     return response.data;
 }
+
+export const getUserList = async(...args) =>{
+    const response = await axios.get(args[0], { headers: {...authHeader()} });
+    return response.data;
+}

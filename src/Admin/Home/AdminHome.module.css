@@ -1,0 +1,29 @@
+.sidebar{
+    height: 100%;
+    width: 250px;
+    background-color: red;
+}
+
+.noBorder {
+    padding:0px;
+    margin: 0px;
+}
+
+.customCol{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    margin-top: 0px !important;
+}
+
+#sideNav{
+    height: 100vh;
+    position: fixed;
+    width: 280px;
+    box-shadow: 5px 0px 10px #b1b8bf19;
+    overflow-x: hidden;
+}
+
+#mainContent {
+    max-width: calc(100vw - 280px);
+    margin-left: 280px;
+}

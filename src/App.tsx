@@ -24,6 +24,9 @@ import AdminLayout from "./components/layout/AdminLayout";
 
 import AdminHome from "./Admin/Home/AdminHome";
 import UserList from "./Admin/UserList/UserList";
+import ActiveCampaignList from "./Admin/ActiveCampaignList/ActiveCampaignList";
+import InacviveCampaignList from "./Admin/InactiveCampaignList/InacviveCampaignList";
+import WithdrawRequest from "./Admin/WithdrawRequest/WithdrawRequest";
 
 function App() {
   // const [state, dispatch] = useReducer(reducer, initialState);
@@ -97,9 +100,11 @@ function App() {
             </Route>
 
             <Route path="admin" element={<AdminLayout />}>
-              <Route path="" element={<div>Admin Panel</div>} />
-              <Route path="home" element={<AdminHome/>}>
-                <Route path="user" element={<UserList/>}/>
+              <Route path="" element={<AdminHome/>}>
+                <Route index element={<UserList/>}/>
+                <Route path="activeList" element={<ActiveCampaignList/>}/>
+                <Route path="inActiveList" element={<InacviveCampaignList/>}/>
+                <Route path="withdrawRequest" element={<WithdrawRequest/>}/>
               </Route>
               <Route path="*" element={<div>No Route Match Component</div>} />
             </Route>

@@ -14,8 +14,13 @@ export const getALlCampaign = async(...args)=>{
 }
 
 export const getCampaign = async(...args)=>{
-    const res = await axios.get(args[0],  { headers: {...authHeader()} });
-    return res.data;
+    try {
+        const res = await axios.get(args[0],  { headers: {...authHeader()} });
+        return res.data;
+    } catch (error) {
+        alert("No response");
+    }
+    
 }
 
 export const updateCampaign = async(id, body)=>{

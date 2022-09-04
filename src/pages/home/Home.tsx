@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import classes from "./home.module.css";
 import useSWR from "swr";
 import { getALlCampaign } from "../../services/campaign.service";
-
+// import useCampaigns from "../../SWR/UseCampaign";
 
 const Home = () => {
 
@@ -16,7 +16,8 @@ const Home = () => {
   if(error) return <div>Error</div>
   if(data.length<=0) return <div>Data Length Is Null</div>
 
-  const firstFiveCampaigns = data.slice(0, 5);
+  const firstFiveCampaigns = data?.slice(0, 5) || [];
+  
   return (
     <>
       {/* Carosoul Section */}

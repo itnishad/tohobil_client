@@ -12,7 +12,7 @@ const Navbarsection: FC<{}> = ()=> {
 
   if(state){
     return(
-      <Navbar bg="light" variant="dark">
+      <Navbar bg="light" variant="light">
         <Container>
 
           <Navbar.Brand as={Link} to="/">
@@ -32,7 +32,7 @@ const Navbarsection: FC<{}> = ()=> {
   }else{
 
   return (
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="light" variant="light">
         <Container>
 
           <Navbar.Brand as={Link} to="/">

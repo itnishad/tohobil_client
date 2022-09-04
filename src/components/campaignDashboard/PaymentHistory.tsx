@@ -28,7 +28,7 @@ const PaymentHistory = () => {
           </thead>
           <tbody>
             {data.map((pay:any, index:any)=>{
-                return (<tr>
+                return (<tr key={pay._id}>
                 <td>{index}</td>
                 <td>{pay.transaction}</td>
                 <td>{pay.cardtype}</td>

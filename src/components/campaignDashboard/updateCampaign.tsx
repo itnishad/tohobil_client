@@ -31,7 +31,7 @@ const UpdateCampaign = () => {
     });
 
     const location:any = useLocation();
-    console.log(location)
+    // console.log(location)
 
     useEffect(()=>{
         const formattedToday = formatDate(location);
@@ -80,7 +80,7 @@ const UpdateCampaign = () => {
          try {
            const response = await updateCampaign(id,formdata);
            seterrorHandel(response.status)
-           console.log(response)
+          //  console.log(response)
 
          } catch (error:any) {
            // console.log(error.response.status);

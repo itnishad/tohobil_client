@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5, p, span{
 
 a {
   text-decoration: none !important;
-  color: black !important;
+  /* color: black !important; */
 }
 
 .font-face-400 {
