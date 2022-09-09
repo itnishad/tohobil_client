@@ -53,3 +53,9 @@
     margin-top: 50px;
     padding: 0px 100px 0px 100px;
 }
+
+.error{
+    color:red;
+    font-size: 42px;
+    font-weight: 800;
+}

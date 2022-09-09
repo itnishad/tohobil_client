@@ -79,3 +79,15 @@
     background-color: #009432 !important;
     border:none;
 }
+
+.error{
+  color:red;
+  font-size: 42px;
+  font-weight: 800;
+}
+
+.noCampaign{
+  color: #f1c40f;
+  font-size: 42px;
+  font-weight: 800;
+}

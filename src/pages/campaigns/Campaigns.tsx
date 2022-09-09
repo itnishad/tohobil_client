@@ -1,13 +1,8 @@
-import React, { useState, Suspense } from "react";
-
-
-import SiteCategory from "./siteCategory";
+import React, { useEffect, useState } from "react";
 import CampaignCard from "./campaignCard";
-
-import Spinner from "react-bootstrap/Spinner";
-import useSWR from "swr";
+import Category from "../../components/campaign/category";
 import { getALlCampaign } from "../../services/campaign.service";
-
+import classes from './campaign.module.css'
 // interface campaigns {
 //   id: string,
 //   title: string,
@@ -19,52 +14,56 @@ import { getALlCampaign } from "../../services/campaign.service";
 //   category: string,
 //   filename: string
 // }
-
 const Campaigns = () => {
-  let campaigns:any;
-
+  const [campaigns, setCampaigns] = useState([]);
+  const [visible, setVisible] = useState(6);
   const [category, setCategory] = useState("All");
-  const {data, error} = useSWR("http://localhost:4000/v1/campaign/get-all-campaigns", getALlCampaign, 
-  {suspense: true,});
+  const [error, setError] = useState("");
 
-  if(!data) return <div>No Data Present</div>
-  if(error) return <div>Error</div>
-  if(data.length<=0) return <div>Data Length Is Null</div>
-  
+  const showMoreCampaigns = ()=>{
+    setVisible(prev=> prev + 3);
+  }
 
-  if(category !== 'All'){
-    campaigns = data.filter((campaign:any)=> campaign.category=== category )
-  }else{
-    campaigns= data;
+  useEffect(() => {
+    getALlCampaign()
+      .then((res: any) => {
+        setCampaigns(res);
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error.message);
+      });
+  }, []);
+
+  let campaignData: any = [];
+
+  if (category !== "All") {
+    campaignData = campaigns.filter(
+      (campaign: any) => campaign.category === category
+    );
+  } else {
+    campaignData = campaigns;
   }
 
   const handleCategory = (value: string) => {
     setCategory(value);
   };
 
- 
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-2 my-5 category-bg">
-          <SiteCategory handle={handleCategory} />
+        <div className="col-3 my-5 category-bg">
         </div>
-        <div className="col-10 pt-5 my-5">
+        <div className="col-9 pt-5 my-5 ps-5">
+        <div className="pt-2 pb-5 px-2"><Category handle={handleCategory}/></div>
+        {campaignData.length<=0 && <div className={classes.noCampaign}>No Campaign Found</div>}
+        {error && <div className={`text-center ${classes.error}`}> {error} </div>}
           <div className="row row-cols-1 row-cols-md-3 g-3">
-            {campaigns.map((camapign: any) => (
-              <Suspense fallback={<></>} key={camapign._id}>
-                <CampaignCard camapign={camapign} />
-              </Suspense>
+            {campaignData.slice(0, visible).map((camapign: any) => (
+                <CampaignCard camapign={camapign}  key={camapign._id}/>
             ))}
           </div>
-          <Suspense
-            fallback={
-              <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </Spinner>
-            }
-          >
-          </Suspense>
+          {campaignData.length>=visible && <button className="btn btn-primary my-5" onClick={showMoreCampaigns}>Load More</button>}
         </div>
       </div>
     </div>

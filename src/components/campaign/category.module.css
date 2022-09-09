@@ -1,0 +1,23 @@
+.customBtn {
+  font-size: 14px;
+  padding: 5px 16px;
+  border-radius: 6px;
+  margin: 5px 10px 5px 0;
+  font-weight: normal;
+  border: 1px solid #757575;
+}
+
+.category {
+    font-weight: bold;
+    line-height: 27px;
+    font-size: 17px;
+    color: #444;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.customBtnt:active, .customBtn:focus {
+    border: 1px solid #4AA567;
+    background-color: #57c282;
+    color: white;
+  }

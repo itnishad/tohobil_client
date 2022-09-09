@@ -8,19 +8,19 @@ export const createCampaign = async (body) =>{
     return response;
 }
 
-export const getALlCampaign = async(...args)=>{
-    const res = await axios.get(args[0]);
-    return res.data
+export const getALlCampaign = async()=>{
+    const response = await axios.get(API_URL +`get-all-campaigns/?limit`, { headers: {...authHeader()} });
+    return response.data
 }
 
-export const getCampaign = async(...args)=>{
-    try {
-        const res = await axios.get(args[0],  { headers: {...authHeader()} });
-        return res.data;
-    } catch (error) {
-        alert("No response");
-    }
-    
+export const getCampaignWithLimit = async(limit)=>{
+    const response = await axios.get(API_URL +`get-all-campaigns/?limit=${limit}`, { headers: {...authHeader()} })
+    return response.data;
+}
+
+export const getCampaign = async(campaignId)=>{
+        const res = await axios.get(API_URL + `details/${campaignId}`,  { headers: {...authHeader()} });
+        return res.data[0];
 }
 
 export const updateCampaign = async(id, body)=>{

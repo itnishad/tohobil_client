@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import CampaignCard from "../campaigns/campaignCard";
 import { Link } from "react-router-dom";
 import classes from "./home.module.css";
-import useSWR from "swr";
-import { getALlCampaign } from "../../services/campaign.service";
-// import useCampaigns from "../../SWR/UseCampaign";
-
+import { getCampaignWithLimit } from "../../services/campaign.service";
 const Home = () => {
+  const [data, setData] = useState([]);
+  const [error, setError] = useState('');
 
-  const {data, error} = useSWR("http://localhost:4000/v1/campaign/get-all-campaigns", getALlCampaign, 
-  {suspense: true,});
-
-  if(!data) return <div>No Data Present</div>
-  if(error) return <div>Error</div>
-  if(data.length<=0) return <div>Data Length Is Null</div>
-
-  const firstFiveCampaigns = data?.slice(0, 5) || [];
+  /**Using React useEffect to fetch data, manage loding state and error handling*/
+  useEffect(()=>{
+    getCampaignWithLimit(6)
+    .then((res:any)=>{
+      setData(res);
+    })
+    .catch(error=>{
+      console.log(error)
+      setError(error.message)
+    })
+  },[]);
   
   return (
     <>
@@ -84,8 +86,9 @@ const Home = () => {
             </p>
           </div>
         </div>
+        {error && <div className={`text-center ${classes.error}`}> {error} </div>}
         <div className="row row-cols-1 row-cols-md-3 g-4 ">
-          {firstFiveCampaigns.map((campaign: any) => {
+          {data.map((campaign: any) => {
             return <CampaignCard camapign={campaign} key={campaign._id} />;
           })}
         </div>
@@ -104,7 +107,7 @@ const Home = () => {
           {/* Causes of Raise Funds */}
           <div className={`row justify-content-center ${classes.mtop}`}>
             <p className={`text-center  ${classes.topHedding}`}>Causes you can raise funds for</p>
-            <p className={`text-center mb-5 ${classes.topSub, classes.catPadding}`}>
+            <p className={`text-center mb-5 ${classes.topSub , classes.catPadding}`}>
               Be it for a personal need, social cause or a creative idea - you
               can count on us for the project that you want to raise funds for.
             </p>

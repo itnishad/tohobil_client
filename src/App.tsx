@@ -19,6 +19,7 @@ import PaymentHistory from "./components/campaignDashboard/PaymentHistory";
 
 import UserLayout from "./components/layout/UserLayout";
 import AdminLayout from "./components/layout/AdminLayout";
+import PageNotFound from "./components/PageNotFound/PageNotFound";
 
 //Admin Page
 
@@ -35,82 +36,50 @@ function App() {
     <div className="App">
       <div className="col-12">
         {/* <AuthContext.Provider value={{ state, dispatch }}> */}
-          <Routes>
-            <Route path="/" element={<UserLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/faq" element={<FAQ />} />
+        <Routes>
+          <Route path="/" element={<UserLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/faq" element={<FAQ />} />
 
-              <Route path="/campaigns">
-                <Route
-                  index
-                  element={
-                    <Suspense
-                      fallback={
-                        <div
-                          className="spinner-border text-warning"
-                          role="status"
-                        >
-                          <span className="visually-hidden">Loading...</span>
-                        </div>
-                      }
-                    >
-                      <Campaigns />
-                    </Suspense>
-                  }
-                />
+            <Route path="/campaigns">
+              <Route index element={<Campaigns />} />
 
-                <Route
-                  path="details/:campaignId"
-                  element={
-                    <Suspense
-                      fallback={
-                        <div
-                          className="spinner-border text-warning"
-                          role="status"
-                        >
-                          <span className="visually-hidden">Loading...</span>
-                        </div>
-                      }
-                    >
-                      <CampaignDetails />
-                    </Suspense>
-                  }
-                />
-              </Route>
-
-              <Route element={<RequireUnAuth />}>
-                <Route path="/login" element={<Login />} />
-                <Route path="/registration" element={<Registration />} />
-              </Route>
-
-              <Route element={<RequireAuth />}>
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="logout" element={<Logout />} />
-                <Route path="start-a-campaign" element={<StartACampaign />} />
-                <Route path="/dashboard/*" element={<Dashboard />}>
-                  <Route index element={<Navigate to="myDashboard" />} />
-                  <Route path="myDashboard" element={<CampaignDashboard />} />
-                  <Route path="myAccount" element={<ProfileForm />} />
-                  <Route path="myAddress" element={<PaymentHistory />} />
-                </Route>
-                <Route path="/update/campaign" element={<UpdateCampaign />} />
-              </Route>
-
-              <Route path="*" element={<div>No Route Match Component</div>} />
+              <Route path="details/:campaignId" element={<CampaignDetails />} />
             </Route>
 
-            <Route path="admin" element={<AdminLayout />}>
-              <Route path="" element={<AdminHome/>}>
-                <Route index element={<UserList/>}/>
-                <Route path="activeList" element={<ActiveCampaignList/>}/>
-                <Route path="inActiveList" element={<InacviveCampaignList/>}/>
-                <Route path="withdrawRequest" element={<WithdrawRequest/>}/>
-              </Route>
-              <Route path="*" element={<div>No Route Match Component</div>} />
+            <Route element={<RequireUnAuth />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/registration" element={<Registration />} />
             </Route>
 
+            <Route element={<RequireAuth />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="logout" element={<Logout />} />
+              <Route path="start-a-campaign" element={<StartACampaign />} />
+              <Route path="/dashboard/*" element={<Dashboard />}>
+                <Route index element={<Navigate to="myDashboard" />} />
+                <Route path="myDashboard" element={<CampaignDashboard />} />
+                <Route path="myAccount" element={<ProfileForm />} />
+                <Route path="myAddress" element={<PaymentHistory />} />
+              </Route>
+              <Route path="/update/campaign" element={<UpdateCampaign />} />
+            </Route>
+
+            <Route path="*" element={<PageNotFound />} />
+          </Route>
+
+          <Route path="admin" element={<AdminLayout />}>
+            <Route path="" element={<AdminHome />}>
+              <Route index element={<UserList />} />
+              <Route path="activeList" element={<ActiveCampaignList />} />
+              <Route path="inActiveList" element={<InacviveCampaignList />} />
+              <Route path="withdrawRequest" element={<WithdrawRequest />} />
+            </Route>
             <Route path="*" element={<div>No Route Match Component</div>} />
-          </Routes>
+          </Route>
+
+          <Route path="*" element={<div>No Route Match Component</div>} />
+        </Routes>
         {/* </AuthContext.Provider> */}
       </div>
     </div>

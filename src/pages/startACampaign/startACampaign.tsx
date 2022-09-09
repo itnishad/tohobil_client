@@ -11,6 +11,7 @@ const StartACampaign = () => {
         content:"",
         goalAmount:"",
         deadline:"",
+        country:"Bangladesh",
         category:"Nonprofit"
     });
 
@@ -53,10 +54,12 @@ const StartACampaign = () => {
             content:"",
             goalAmount:"",
             deadline:"",
+            country:"Bangladesh",
             category:"Nonprofit"
         })
           // const response = await axios.post('https://httpbin.org/anything', formdata)
           console.log(response)
+          
         } catch (error:any) {
           // console.log(error.response.status);
           seterrorHandel(error.response.status)
@@ -140,6 +143,25 @@ const StartACampaign = () => {
                 required
               />
             </Form.Group>
+
+            <Form.Label className="mb-2E">Country</Form.Label>
+            <Form.Select 
+            className="mb-4" 
+            size="lg" 
+            aria-label="Default select example"
+            name="category"
+            // value={campaign.category}
+            onChange={handleChange} 
+            required>
+              <option value="Bangladesh">Bangladesh</option>
+              <option value="India">India</option>
+              <option value="Pakistan ">Pakistan </option>
+              <option value="Afghanistan">Afghanistan</option>
+              <option value="Maldives">Maldives</option>
+              <option value="Bhutan">Bhutan</option>
+              <option value="Nepal">Nepal</option>
+              <option value="Sri-Lanka">Sri-Lanka</option>
+            </Form.Select>
 
 
             <Form.Label className="mb-2E">Category</Form.Label>
