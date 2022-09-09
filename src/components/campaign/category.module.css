@@ -1,10 +1,10 @@
 .customBtn {
-  font-size: 14px;
-  padding: 5px 16px;
-  border-radius: 6px;
-  margin: 5px 10px 5px 0;
-  font-weight: normal;
-  border: 1px solid #757575;
+  font-size: 14px !important;
+  padding: 5px 16px !important;
+  border-radius: 6px !important;
+  margin: 5px 10px 5px 0 !important;
+  font-weight: normal !important;
+  border: 1px solid #757575 !important;
 }
 
 .category {
@@ -18,6 +18,8 @@
 
 .customBtnt:active, .customBtn:focus {
     border: 1px solid #4AA567;
-    background-color: #57c282;
+    background-color: #57c282 ;
     color: white;
-  }
+}
+
+
