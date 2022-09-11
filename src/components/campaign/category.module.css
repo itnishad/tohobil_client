@@ -22,4 +22,15 @@
     color: white;
 }
 
+.ctmcheckbox{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  cursor: pointer;
+}
+
+ul{
+  margin-left: 10px;
+}
 
