@@ -33,6 +33,9 @@ const CampaignDashbordCard = (props: any) => {
                   <Link to={`../../update/campaign`} state={campaign}>
                     <Button className="btn btn-primary col-12"  variant="primary">Update Campaign</Button>
                   </Link>
+                  <Link to={`../../user/verification`} state={campaign}>
+                    <Button className="btn btn-primary col-12 mt-2"  variant="primary">Verify Your Campaign</Button>
+                  </Link>
                 </div>
               </div>
             </Card.Body>

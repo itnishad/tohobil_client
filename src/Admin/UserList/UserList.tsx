@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./userlist.module.css";
 
 import DataTable from "react-data-table-component";
-import useSWR from "swr";
-import { getUserList } from "../../services/user.service";
+import { getUserList } from "../../services/admin.service";
 import { deleteUser } from "../../services/admin.service";
 
 
 const handle = async(id:any)=>{
-  const res = await deleteUser(id);
-  console.log(res);
+  try {
+    const res = await deleteUser(id);
+    console.log(res);
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 
@@ -33,21 +36,22 @@ const columns = [
 
 const UserList = () => {
 
-  const {data, error} = useSWR("http://localhost:4000/v1/user/getAllUser", getUserList);
+  const [userList, setUserList] = useState<any[]>([]);
 
-  if(error){
-    return <div>Error</div>
-  }
-  if(!data){
-    return <div>No Data</div>
-  }
+  useEffect(()=>{
+    const apiCall = async()=>{
+      const res = await getUserList();
+      setUserList(res);
+    }
+    apiCall();
+  },[])
 
   return (
     <div className="container-fluid pb-md-5 mb-5">
       <div className="row">
         <div className="col-12">
           <div className={`card px-3 ${classes.customCard}`}>
-            <DataTable columns={columns} data={data} pagination />
+            <DataTable columns={columns} data={userList} pagination />
           </div>
         </div>
       </div>

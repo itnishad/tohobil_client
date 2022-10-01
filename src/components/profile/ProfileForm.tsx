@@ -7,6 +7,7 @@ import { getUserProfile, updateUserProfile } from "../../services/user.service";
 import Alert from 'react-bootstrap/Alert';
 
 const ProfileForm = () => {
+
   const { data, error } = useSWR(
     "http://localhost:4000/v1/user/profile",
     getUserProfile

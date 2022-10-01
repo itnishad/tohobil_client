@@ -5,7 +5,11 @@ import classes from "./category.module.css";
 const checkBoxList: any[] = [
   {
     id: 1,
-    title: "Almost Funded",
+    title: "Most Funded",
+  },
+  {
+    id: 2,
+    title: "Varified Campaign",
   }
 ];
 

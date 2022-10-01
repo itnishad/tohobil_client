@@ -16,10 +16,11 @@ import CampaignDashboard from "./components/campaignDashboard/CampaignDashboard"
 import UpdateCampaign from "./components/campaignDashboard/updateCampaign";
 import ProfileForm from "./components/profile/ProfileForm";
 import PaymentHistory from "./components/campaignDashboard/PaymentHistory";
+import PageNotFound from "./components/PageNotFound/PageNotFound";
 
 import UserLayout from "./components/layout/UserLayout";
 import AdminLayout from "./components/layout/AdminLayout";
-import PageNotFound from "./components/PageNotFound/PageNotFound";
+import UserVerification from "./pages/userVerification/userVerification";
 
 //Admin Page
 
@@ -28,6 +29,13 @@ import UserList from "./Admin/UserList/UserList";
 import ActiveCampaignList from "./Admin/ActiveCampaignList/ActiveCampaignList";
 import InacviveCampaignList from "./Admin/InactiveCampaignList/InacviveCampaignList";
 import WithdrawRequest from "./Admin/WithdrawRequest/WithdrawRequest";
+import Profile from "./pages/profile";
+import AdminLogin from "./Admin/login/AdminLogin";
+import AdminRequireAuth from "./Admin/AdminRequireAuth";
+import AdminRequireUnAuth from "./Admin/AdminRequireUnAuth";
+import AdminLogout from './Admin/login/Adminlogout'
+import UserVerifyList from "./Admin/UserVerificationList/UserVerifyList";
+import UserVerificationDetails from "./Admin/UserVerificationList/UserVerificationDetails";
 
 function App() {
   // const [state, dispatch] = useReducer(reducer, initialState);
@@ -40,11 +48,45 @@ function App() {
           <Route path="/" element={<UserLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/profile/:userId" element={<Profile />} />
+            <Route path="/user/verification" element={<UserVerification/>}/>
 
             <Route path="/campaigns">
-              <Route index element={<Campaigns />} />
+              <Route
+                index
+                element={
+                  <Suspense
+                    fallback={
+                      <div
+                        className="spinner-border text-warning"
+                        role="status"
+                      >
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                    }
+                  >
+                    <Campaigns />
+                  </Suspense>
+                }
+              />
 
-              <Route path="details/:campaignId" element={<CampaignDetails />} />
+              <Route
+                path="details/:campaignId"
+                element={
+                  <Suspense
+                    fallback={
+                      <div
+                        className="spinner-border text-warning"
+                        role="status"
+                      >
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                    }
+                  >
+                    <CampaignDetails />
+                  </Suspense>
+                }
+              />
             </Route>
 
             <Route element={<RequireUnAuth />}>
@@ -65,20 +107,27 @@ function App() {
               <Route path="/update/campaign" element={<UpdateCampaign />} />
             </Route>
 
-            <Route path="*" element={<PageNotFound />} />
+            <Route path="*" element={<PageNotFound/>} />
           </Route>
 
           <Route path="admin" element={<AdminLayout />}>
-            <Route path="" element={<AdminHome />}>
-              <Route index element={<UserList />} />
-              <Route path="activeList" element={<ActiveCampaignList />} />
-              <Route path="inActiveList" element={<InacviveCampaignList />} />
-              <Route path="withdrawRequest" element={<WithdrawRequest />} />
+            <Route element={<AdminRequireUnAuth />}>
+              <Route path="login" element={<AdminLogin />} />
             </Route>
-            <Route path="*" element={<div>No Route Match Component</div>} />
+            <Route element={<AdminRequireAuth />}>
+              <Route path="" element={<AdminHome />}>
+                <Route index element={<UserList />} />
+                <Route path="activeList" element={<ActiveCampaignList />} />
+                <Route path="inActiveList" element={<InacviveCampaignList />} />
+                <Route path="user/verification" element={<UserVerifyList/>}/>
+                <Route path="withdrawRequest" element={<WithdrawRequest />} />
+                <Route path="VerificationDetails" element={<UserVerificationDetails/>}/>
+              </Route>
+              <Route path="logout" element={<AdminLogout />} />
+              <Route path="*" element={<PageNotFound/>} />
+            </Route >
           </Route>
-
-          <Route path="*" element={<div>No Route Match Component</div>} />
+          <Route path="*" element={<PageNotFound/>} />
         </Routes>
         {/* </AuthContext.Provider> */}
       </div>

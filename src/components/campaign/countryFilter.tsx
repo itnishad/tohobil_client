@@ -29,4 +29,4 @@ const CountryFilter = (props: any) => {
   )
 }
 
-export default CountryFilter
+export default CountryFilter;

@@ -17,7 +17,7 @@ export const getUserPaymentHistory = async(...args) =>{
     return response.data;
 }
 
-export const getUserList = async(...args) =>{
-    const response = await axios.get(args[0], { headers: {...authHeader()} });
+export const getUserProfileAsyncAwait = async(userId)=>{
+    const response = await axios.get(`http://localhost:4000/v1/user/profile/${userId}`,  { headers: {...authHeader()} })
     return response.data;
 }

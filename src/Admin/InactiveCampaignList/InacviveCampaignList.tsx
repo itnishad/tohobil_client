@@ -1,16 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
-import useSWR from 'swr';
 import { getALlCampaign } from '../../services/campaign.service';
-
+import { ActiveCampaign } from "../../services/admin.service";
 const InacviveCampaignList = () => {
+
+  const [activeCampaigns, setActiveCampaigns] = useState<any[]>([]);
+  const [reload, setReload] = useState(false);
+
+  useEffect(() => {
+    const apiCall = async () => {
+      const res = await getALlCampaign();
+      setActiveCampaigns(res);
+    };
+    apiCall();
+  }, [reload]);
+
+  const handleActive = async (row: any) => {
+    try {
+      const res = await ActiveCampaign(row._id);
+      setReload(!reload);
+      if(res.status === 200){
+        alert("Campaign Updated");
+      }
+    } catch (error) {
+      alert("Server Response Failed")
+    }
+    
+  };
   
-  const {data, error} = useSWR("http://localhost:4000/v1/campaign/get-all-campaigns", getALlCampaign);
-
-  if(error) return <div>Error</div>
-  if(!data) return <div>No Data Found</div>
-
-  const inActiveCampaign = data ? data.filter((campain:any)=> campain.active === false ): [];
+  const inActiveCampaign = activeCampaigns.filter((campain:any)=> campain.active === false );
 
   const columns = [
     // {
@@ -44,7 +62,7 @@ const InacviveCampaignList = () => {
     },
     {
       name: "Active",
-      selector: (row: any) => <button className="btn btn-success" >Active Now</button>,
+      selector: (row: any) => <button className="btn btn-success" onClick={()=>handleActive(row)}>Active Now</button>,
       sortable: false,
     }
     

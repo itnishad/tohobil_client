@@ -5,6 +5,7 @@ import SideFilter from "../../components/campaign/sideFilter";
 import CountryFilter from "../../components/campaign/countryFilter";
 import { getALlCampaign } from "../../services/campaign.service";
 import classes from "./campaign.module.css";
+import ads from '../../assets/images/onetakameal.png'
 
 // interface campaigns {
 //   id: string,
@@ -19,16 +20,23 @@ import classes from "./campaign.module.css";
 // }
 
 const sideFilter = (filterArray: any, campaigns: any) => {
-  if (filterArray.includes("Almost Funded")) {
-    return campaigns.sort((a: any, b: any) => {
+
+  let filterCampaign = [...campaigns];
+
+  if (filterArray.includes("Most Funded")) {
+    filterCampaign.sort((a: any, b: any) => {
       return b.Amount - a.Amount;
     });
-  } else {
-    return campaigns;
   }
 
+  if(filterArray.includes("Varified Campaign")){
+    filterCampaign = filterCampaign.filter((item:any)=> item.isVerified === true)
+  }
+
+  return filterCampaign;
   // campaignData = campaignData.sort((a:any, b:any) => {return b.Amount - a.Amount});
 };
+
 const Campaigns = () => {
   const [campaigns, setCampaigns] = useState([]);
   const [visible, setVisible] = useState(6);
@@ -55,14 +63,16 @@ const Campaigns = () => {
   };
 
   useEffect(() => {
+
     getALlCampaign()
       .then((res: any) => {
-        setCampaigns(res);
+        setCampaigns(res.filter((item:any)=> item.active === true));
       })
       .catch((error) => {
         console.log(error);
         setError(error.message);
       });
+
   }, []);
 
   let campaignData: any = [];
@@ -93,7 +103,14 @@ const Campaigns = () => {
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-3 my-5">
+          <div className="row mb-5">
+            <div className="col-12 pb-5">
+              <img src={ads} alt="Card"/>
+            </div>
+          </div>
+          <div className="mb-5">
           <SideFilter handleSideSort={handleSideSort} />
+          </div>
           <CountryFilter handleCountry={handleCountry} />
         </div>
         <div className="col-9 pt-5 my-5 ps-5">

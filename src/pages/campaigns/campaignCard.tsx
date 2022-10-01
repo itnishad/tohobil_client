@@ -11,14 +11,14 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 const CampaignCard = (props: any) => {
     const {camapign} = props
     // console.log(camapign);
-    let now = Math.floor((camapign.Amount / camapign.goalAmount) * 100)
+    let now = Math.floor((camapign.Amount / camapign.goalAmount) * 100);
     return(
         <div className="col-md-4 ">
           <Card className="h-100">
             <Card.Img variant="top" width={"100px"} height={"200px"} src={`http://localhost:4000/public/images/${camapign.filename}`} />
             <Card.Body className={classes.cardBodyCustom}>
              <Link to={`../../campaigns/details/${camapign._id}`}><Card.Title className="mt-2">{camapign.title}</Card.Title></Link>
-              <Card.Text>By : {camapign.user.name}</Card.Text>
+              <Link to={`../../profile/${camapign.user._id}`}><Card.Text>By : {camapign.user.name}</Card.Text></Link>
               <ProgressBar className="mb-4" now={now} label={`${now}%`} />
               <div className="row">
                 <div className="col-6">

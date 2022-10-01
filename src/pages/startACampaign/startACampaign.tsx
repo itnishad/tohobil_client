@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Editor } from "@tinymce/tinymce-react";
 import {createCampaign} from '../../services/campaign.service'
@@ -149,8 +149,8 @@ const StartACampaign = () => {
             className="mb-4" 
             size="lg" 
             aria-label="Default select example"
-            name="category"
-            // value={campaign.category}
+            name="country"
+            value={campaign.country}
             onChange={handleChange} 
             required>
               <option value="Bangladesh">Bangladesh</option>

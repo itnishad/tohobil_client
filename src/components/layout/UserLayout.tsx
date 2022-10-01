@@ -10,11 +10,13 @@ const UserLayout = () => {
     <>
     <AuthContext.Provider value={{ state, dispatch }}>
     <Navbar />
-    <Outlet />
+    <div style={{overflow:"hidden"}}>
+      <Outlet />
+    </div>
     <Footer />
     </AuthContext.Provider>
     </>
   )
 }
 
-export default UserLayout
+export default UserLayout;
