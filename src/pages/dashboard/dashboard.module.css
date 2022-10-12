@@ -14,3 +14,9 @@
     background-color: #009432 !important;
     border:none;
 }
+
+@media screen and (max-width:768px) {
+    .btnCustom{
+        width: 100%;
+    }
+}

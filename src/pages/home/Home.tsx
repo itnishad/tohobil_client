@@ -12,6 +12,7 @@ const Home = () => {
   useEffect(()=>{
     getCampaignWithLimit(6)
     .then((res:any)=>{
+      res = res.filter((item:any)=> item.active)
       setData(res);
     })
     .catch(error=>{
@@ -994,9 +995,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <section className={classes.ourEfficiency}>
+        <section className={`${classes.ourEfficiency}`}>
           <div className="row">
-            <div className="col-12 text-center">
+            <div className={`col-12 text-center ${classes.EfficiencySec}`}>
               <h1>Our Efficiency & Transparency</h1>
               <p className={classes.sidePadding}>
                 We know that you care about how effectively your donation is

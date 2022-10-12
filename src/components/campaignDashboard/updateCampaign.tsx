@@ -92,8 +92,8 @@ const UpdateCampaign = () => {
 
   return (
     <div className="container">
-      <div className="row justify-content-center p-5">
-        <div className="col-9 bg-light p-5 custom-campaign">
+      <div className="row justify-content-center p-sm-2 p-lg-5">
+        <div className="col-md-9 bg-light p-sm-2 p-lg-5 custom-campaign">
 
         {errorHandel === 500 ?  <Alert  variant="danger" onClose={() => seterrorHandel(0)} dismissible>
         Campaign Insert unsuccessfully

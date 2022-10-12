@@ -53,8 +53,8 @@ const Login = ()=>{
 
   return (
     <div className="container">
-      <div className="row justify-content-center mt-5 p-5">
-        <div className="col-5 bg-light p-5 custom-log">
+      <div className="row justify-content-center mt-md-5 p-md-5">
+        <div className="col-md-5 bg-light p-md-5 custom-log">
 
         {errorHandel ?  <Alert  variant="danger" onClose={() => seterrorHandel(false)} dismissible>
           Incorrect username or password

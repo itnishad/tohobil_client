@@ -63,8 +63,8 @@ const Registration:FC<{}> = ()=>{
 
   return (
     <div className="container">
-      <div className="row p-5">
-        <div className="col-5 mx-auto bg-light p-5 custom-reg">
+      <div className="row mt-sm-4 p-md-5">
+        <div className="col-md-8 col-lg-5 mx-auto bg-light p-sm-3 p-md-5 custom-reg">
         <form onSubmit={handleSubmit}>
           <h3>Sign Up</h3>
           <div className="mb-3 form-group">

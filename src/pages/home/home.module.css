@@ -59,3 +59,33 @@
     font-size: 42px;
     font-weight: 800;
 }
+
+@media only screen and (max-width: 600px) {
+
+    .heroDisplay{
+        color:#fcfcfc;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 47px;
+    }
+
+    .EfficiencySec  h1{
+        font-size: 24px !important;
+    }
+    .ourEfficiency{
+        height: 350px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* background-image: url(); */
+        background-color: blanchedalmond;
+    }
+
+    .sidePadding{
+        font-size: 16px;
+        margin-top: 50px;
+        padding: 0px 10px 0px 10px;
+    }
+}

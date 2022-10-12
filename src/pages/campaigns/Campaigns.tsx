@@ -102,9 +102,9 @@ const Campaigns = () => {
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-3 my-5">
-          <div className="row mb-5">
-            <div className="col-12 pb-5">
+        <div className="col-lg-3 my-5">
+          <div className="row mb-5 d-none d-lg-block">
+            <div className="col-12 pb-5 ">
               <img src={ads} alt="Card"/>
             </div>
           </div>
@@ -113,7 +113,7 @@ const Campaigns = () => {
           </div>
           <CountryFilter handleCountry={handleCountry} />
         </div>
-        <div className="col-9 pt-5 my-5 ps-5">
+        <div className="col-lg-9 pt-sm-2 pt-lg-5 mt-sm-2 my-lg-5 ps-sm-2 ps-lg-5">
           {/* Search Component */}
           <div className="text-end">
             <input
@@ -138,12 +138,14 @@ const Campaigns = () => {
             ))}
           </div>
           {campaignData.length >= visible && (
+            <div className="text-center">
             <button
-              className="btn btn-primary my-5"
+              className="btn btn-lg btn-primary mt-5 "
               onClick={showMoreCampaigns}
             >
               Load More
             </button>
+            </div>
           )}
         </div>
       </div>

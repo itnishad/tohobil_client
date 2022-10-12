@@ -62,7 +62,7 @@ const ProfileForm = () => {
   return (
     <div className="container">
       <div className="row justify-content-start mt-4">
-        <div className="col-9 bg-light p-5 custom-campaign">
+        <div className="col-lg-9 bg-light p-sm-5 p-3 custom-campaign">
 
         {errorHandel === 500 ?  <Alert  variant="danger" onClose={() => seterrorHandel(0)} dismissible>
         Campaign Insert unsuccessfully
